@@ -2,6 +2,22 @@
 
 A curated collection of production-ready CSS and SCSS gradients. Copy with one click and add to your project.
 
+## Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/grid-view.png" alt="Grid View" width="100%">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/list-view.png" alt="List View" width="49%">
+  <img src="docs/screenshots/create.png" alt="Create Gradient" width="49%">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/login.png" alt="Login" width="49%">
+  <img src="docs/screenshots/sign-up.png" alt="Sign Up" width="49%">
+</p>
+
 ## Features
 
 - **Gradient Collection**: Browse and search through curated gradients
