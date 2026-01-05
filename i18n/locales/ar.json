@@ -1,0 +1,200 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "add": "إضافة",
+    "clear": "مسح",
+    "copy": "نسخ",
+    "copied": "تم النسخ!",
+    "tryAgain": "حاول مرة أخرى",
+    "error": "حدث خطأ",
+    "success": "تم بنجاح!",
+    "required": "مطلوب",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "register": "إنشاء حساب",
+    "settings": "الإعدادات",
+    "back": "رجوع"
+  },
+  "nav": {
+    "brand": "my lovely gradients"
+  },
+  "auth": {
+    "login": {
+      "title": "تسجيل الدخول",
+      "subtitle": "سجّل دخولك إلى حسابك",
+      "button": "تسجيل الدخول",
+      "loading": "جاري تسجيل الدخول...",
+      "noAccount": "ليس لديك حساب؟",
+      "signupLink": "إنشاء حساب"
+    },
+    "register": {
+      "title": "إنشاء حساب",
+      "subtitle": "أنشئ حساباً جديداً",
+      "button": "إنشاء حساب",
+      "loading": "جاري إنشاء الحساب...",
+      "hasAccount": "لديك حساب بالفعل؟",
+      "loginLink": "تسجيل الدخول",
+      "successTitle": "تم التسجيل بنجاح!",
+      "successMessage": "لقد أرسلنا رابط التحقق إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد."
+    },
+    "fields": {
+      "fullName": "الاسم الكامل",
+      "fullNamePlaceholder": "أدخل اسمك",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "example{'@'}email.com",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "********",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "confirmPasswordPlaceholder": "أعد إدخال كلمة المرور",
+      "minChars": "{count} أحرف على الأقل"
+    },
+    "errors": {
+      "emailRequired": "البريد الإلكتروني وكلمة المرور مطلوبان",
+      "passwordMin": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+      "passwordMinLength": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+      "passwordMismatch": "كلمات المرور غير متطابقة"
+    }
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "subtitle": "إدارة إعدادات حسابك",
+    "profile": {
+      "title": "معلومات الملف الشخصي",
+      "success": "تم تحديث الملف الشخصي بنجاح!",
+      "emailLabel": "البريد الإلكتروني",
+      "emailHint": "تواصل مع الدعم لتغيير بريدك الإلكتروني",
+      "nameLabel": "الاسم الكامل",
+      "namePlaceholder": "أدخل اسمك",
+      "saveButton": "حفظ الملف الشخصي",
+      "saving": "جاري الحفظ..."
+    },
+    "password": {
+      "title": "تغيير كلمة المرور",
+      "success": "تم تحديث كلمة المرور بنجاح!",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+      "updateButton": "تحديث كلمة المرور",
+      "updating": "جاري التحديث..."
+    },
+    "danger": {
+      "title": "منطقة الخطر",
+      "description": "لا يمكن التراجع عن هذا الإجراء. سيتم حذف حسابك وجميع تدرجاتك بشكل دائم.",
+      "deleteButton": "حذف حسابي",
+      "modal": {
+        "title": "أنت على وشك حذف حسابك",
+        "description": "لا يمكن التراجع عن هذا الإجراء. سيتم حذف جميع بياناتك بشكل دائم. اكتب {confirm} أدناه للمتابعة.",
+        "confirmText": "احذف حسابي",
+        "deleteButton": "حذف الحساب",
+        "deleting": "جاري الحذف..."
+      }
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "{count} تدرج جاهز",
+      "titleStart": "انسخ، الصق،",
+      "titleHighlight": "تألق.",
+      "description": "مجموعة تدرجات CSS و SCSS جاهزة للإنتاج ومختارة بعناية. انسخ بنقرة واحدة وأضفها لمشروعك."
+    },
+    "stats": {
+      "gradients": "تدرج",
+      "categories": "فئة",
+      "oneClick": "نقرة واحدة",
+      "copy": "نسخ"
+    },
+    "createGradient": "إنشاء تدرج",
+    "search": {
+      "placeholder": "ابحث عن تدرج...",
+      "tagPlaceholder": "اختر وسماً..."
+    },
+    "tabs": {
+      "all": "الكل",
+      "system": "النظام",
+      "mine": "خاصتي",
+      "user": "المستخدم"
+    },
+    "results": {
+      "count": "{count} نتيجة",
+      "filtered": "مفلترة",
+      "clear": "مسح"
+    },
+    "view": {
+      "grid": "عرض الشبكة",
+      "list": "عرض القائمة"
+    },
+    "loading": "جاري تحميل التدرجات...",
+    "error": {
+      "title": "حدث خطأ",
+      "retry": "حاول مرة أخرى"
+    },
+    "empty": {
+      "noResults": "لم يتم العثور على نتائج",
+      "noGradients": "لا توجد تدرجات بعد"
+    },
+    "deleteConfirm": "هل أنت متأكد من حذف هذا التدرج؟",
+    "deleteModal": {
+      "title": "حذف التدرج",
+      "description": "سيتم حذف هذا التدرج بشكل دائم. لا يمكن التراجع عن هذا الإجراء."
+    }
+  },
+  "card": {
+    "badges": {
+      "system": "النظام",
+      "mine": "خاصتي"
+    },
+    "showCode": "عرض الكود",
+    "hideCode": "إخفاء الكود",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "deleteConfirm": "هل أنت متأكد من حذف هذا التدرج؟"
+  },
+  "gradientModal": {
+    "createTitle": "إنشاء تدرج جديد",
+    "editTitle": "تعديل التدرج",
+    "loginRequired": "يجب تسجيل الدخول لإنشاء تدرج.",
+    "fields": {
+      "name": "اسم التدرج",
+      "namePlaceholder": "مثال: نسيم المحيط",
+      "description": "الوصف",
+      "descriptionPlaceholder": "وصف قصير عن التدرج...",
+      "colors": "الألوان",
+      "addColor": "إضافة لون",
+      "colorStart": "البداية",
+      "colorEnd": "النهاية",
+      "colorN": "اللون {n}",
+      "angle": "الزاوية",
+      "tags": "الوسوم",
+      "addTag": "إضافة وسم جديد..."
+    },
+    "buttons": {
+      "create": "إنشاء التدرج",
+      "save": "حفظ",
+      "update": "تحديث",
+      "creating": "جاري الإنشاء...",
+      "saving": "جاري الحفظ...",
+      "updating": "جاري التحديث..."
+    },
+    "errors": {
+      "createFailed": "فشل إنشاء التدرج",
+      "updateFailed": "فشل تحديث التدرج"
+    },
+    "toast": {
+      "created": "تم إنشاء التدرج!",
+      "updated": "تم تحديث التدرج!"
+    }
+  },
+  "user": {
+    "admin": "مدير",
+    "administrator": "مسؤول النظام"
+  },
+  "language": {
+    "select": "اللغة",
+    "tr": "Türkçe",
+    "en": "English",
+    "ar": "العربية"
+  }
+}

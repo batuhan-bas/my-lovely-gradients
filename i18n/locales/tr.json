@@ -1,0 +1,200 @@
+{
+  "common": {
+    "loading": "Yukleniyor...",
+    "save": "Kaydet",
+    "cancel": "Iptal",
+    "delete": "Sil",
+    "edit": "Duzenle",
+    "add": "Ekle",
+    "clear": "Temizle",
+    "copy": "Kopyala",
+    "copied": "Kopyalandi!",
+    "tryAgain": "Tekrar Dene",
+    "error": "Hata olustu",
+    "success": "Basarili!",
+    "required": "Gerekli",
+    "login": "Giris Yap",
+    "logout": "Cikis Yap",
+    "register": "Kayit Ol",
+    "settings": "Ayarlar",
+    "back": "Geri"
+  },
+  "nav": {
+    "brand": "my lovely gradients"
+  },
+  "auth": {
+    "login": {
+      "title": "Giris Yap",
+      "subtitle": "Hesabiniza giris yapin",
+      "button": "Giris Yap",
+      "loading": "Giris yapiliyor...",
+      "noAccount": "Hesabiniz yok mu?",
+      "signupLink": "Kayit Ol"
+    },
+    "register": {
+      "title": "Kayit Ol",
+      "subtitle": "Yeni hesap olusturun",
+      "button": "Kayit Ol",
+      "loading": "Kayit yapiliyor...",
+      "hasAccount": "Zaten hesabiniz var mi?",
+      "loginLink": "Giris Yap",
+      "successTitle": "Kayit Basarili!",
+      "successMessage": "Email adresinize dogrulama linki gonderdik. Lutfen email kutunuzu kontrol edin."
+    },
+    "fields": {
+      "fullName": "Ad Soyad",
+      "fullNamePlaceholder": "Adinizi girin",
+      "email": "Email",
+      "emailPlaceholder": "ornek{'@'}email.com",
+      "password": "Sifre",
+      "passwordPlaceholder": "********",
+      "confirmPassword": "Sifre Tekrar",
+      "confirmPasswordPlaceholder": "Sifrenizi tekrar girin",
+      "minChars": "En az {count} karakter"
+    },
+    "errors": {
+      "emailRequired": "Email ve sifre gerekli",
+      "passwordMin": "Sifre en az 8 karakter olmali",
+      "passwordMinLength": "Sifre en az 8 karakter olmali",
+      "passwordMismatch": "Sifreler eslesmiyor"
+    }
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "subtitle": "Hesap ayarlarinizi yonetin",
+    "profile": {
+      "title": "Profil Bilgileri",
+      "success": "Profil basariyla guncellendi!",
+      "emailLabel": "Email",
+      "emailHint": "Email degistirmek icin destek ile iletisime gecin",
+      "nameLabel": "Ad Soyad",
+      "namePlaceholder": "Adinizi girin",
+      "saveButton": "Profili Kaydet",
+      "saving": "Kaydediliyor..."
+    },
+    "password": {
+      "title": "Sifre Degistir",
+      "success": "Sifre basariyla guncellendi!",
+      "newPassword": "Yeni Sifre",
+      "confirmNewPassword": "Yeni Sifre (Tekrar)",
+      "updateButton": "Sifreyi Guncelle",
+      "updating": "Guncelleniyor..."
+    },
+    "danger": {
+      "title": "Tehlikeli Bolge",
+      "description": "Bu islem geri alinamaz. Hesabiniz ve tum gradient'leriniz kalici olarak silinecektir.",
+      "deleteButton": "Hesabimi Sil",
+      "modal": {
+        "title": "Hesabi Silmek Uzeresiniz",
+        "description": "Bu islem geri alinamaz. Tum verileriniz kalici olarak silinecektir. Devam etmek icin asagiya {confirm} yazin.",
+        "confirmText": "HESABIMI SIL",
+        "deleteButton": "Hesabi Sil",
+        "deleting": "Siliniyor..."
+      }
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "{count} gradient hazir",
+      "titleStart": "Kopyala, yapistir,",
+      "titleHighlight": "parlat.",
+      "description": "Ozenle secilmis, production-ready CSS ve SCSS gradient koleksiyonu. Tek tikla kopyala, projene ekle."
+    },
+    "stats": {
+      "gradients": "Gradient",
+      "categories": "Kategori",
+      "oneClick": "1-Click",
+      "copy": "Kopyala"
+    },
+    "createGradient": "Gradient Olustur",
+    "search": {
+      "placeholder": "Gradient ara...",
+      "tagPlaceholder": "Tag sec..."
+    },
+    "tabs": {
+      "all": "Tumu",
+      "system": "System",
+      "mine": "Benim",
+      "user": "Kullanici"
+    },
+    "results": {
+      "count": "{count} sonuc",
+      "filtered": "filtrelendi",
+      "clear": "Temizle"
+    },
+    "view": {
+      "grid": "Grid gorunumu",
+      "list": "Liste gorunumu"
+    },
+    "loading": "Gradient'ler yukleniyor...",
+    "error": {
+      "title": "Hata olustu",
+      "retry": "Tekrar Dene"
+    },
+    "empty": {
+      "noResults": "Sonuc bulunamadi",
+      "noGradients": "Henuz gradient yok"
+    },
+    "deleteConfirm": "Bu gradient'i silmek istediginizden emin misiniz?",
+    "deleteModal": {
+      "title": "Gradient'i Sil",
+      "description": "Bu gradient kalici olarak silinecek. Bu islem geri alinamaz."
+    }
+  },
+  "card": {
+    "badges": {
+      "system": "System",
+      "mine": "Benim"
+    },
+    "showCode": "Show code",
+    "hideCode": "Hide code",
+    "edit": "Duzenle",
+    "delete": "Sil",
+    "deleteConfirm": "Bu gradient'i silmek istediginizden emin misiniz?"
+  },
+  "gradientModal": {
+    "createTitle": "Yeni Gradient Olustur",
+    "editTitle": "Gradient Duzenle",
+    "loginRequired": "Gradient olusturmak icin giris yapmalisiniz.",
+    "fields": {
+      "name": "Gradient Adi",
+      "namePlaceholder": "Ornek: Ocean Breeze",
+      "description": "Aciklama",
+      "descriptionPlaceholder": "Gradient hakkinda kisa bir aciklama...",
+      "colors": "Renkler",
+      "addColor": "Renk Ekle",
+      "colorStart": "Baslangic",
+      "colorEnd": "Bitis",
+      "colorN": "Renk {n}",
+      "angle": "Aci",
+      "tags": "Etiketler",
+      "addTag": "Yeni etiket ekle..."
+    },
+    "buttons": {
+      "create": "Gradient Olustur",
+      "save": "Kaydet",
+      "update": "Guncelle",
+      "creating": "Olusturuluyor...",
+      "saving": "Kaydediliyor...",
+      "updating": "Guncelleniyor..."
+    },
+    "errors": {
+      "createFailed": "Gradient olusturulamadi",
+      "updateFailed": "Gradient guncellenemedi"
+    },
+    "toast": {
+      "created": "Gradient olusturuldu!",
+      "updated": "Gradient guncellendi!"
+    }
+  },
+  "user": {
+    "admin": "Admin",
+    "administrator": "Administrator"
+  },
+  "language": {
+    "select": "Dil",
+    "tr": "Turkce",
+    "en": "English",
+    "ar": "العربية"
+  }
+}

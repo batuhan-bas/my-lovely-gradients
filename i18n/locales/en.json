@@ -1,0 +1,200 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "clear": "Clear",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "tryAgain": "Try Again",
+    "error": "An error occurred",
+    "success": "Success!",
+    "required": "Required",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Sign Up",
+    "settings": "Settings",
+    "back": "Back"
+  },
+  "nav": {
+    "brand": "my lovely gradients"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Sign in to your account",
+      "button": "Login",
+      "loading": "Logging in...",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign Up"
+    },
+    "register": {
+      "title": "Sign Up",
+      "subtitle": "Create a new account",
+      "button": "Sign Up",
+      "loading": "Signing up...",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Login",
+      "successTitle": "Registration Successful!",
+      "successMessage": "We've sent a verification link to your email. Please check your inbox."
+    },
+    "fields": {
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter your name",
+      "email": "Email",
+      "emailPlaceholder": "example{'@'}email.com",
+      "password": "Password",
+      "passwordPlaceholder": "********",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Re-enter your password",
+      "minChars": "At least {count} characters"
+    },
+    "errors": {
+      "emailRequired": "Email and password are required",
+      "passwordMin": "Password must be at least 8 characters",
+      "passwordMinLength": "Password must be at least 8 characters",
+      "passwordMismatch": "Passwords do not match"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account settings",
+    "profile": {
+      "title": "Profile Information",
+      "success": "Profile updated successfully!",
+      "emailLabel": "Email",
+      "emailHint": "Contact support to change your email",
+      "nameLabel": "Full Name",
+      "namePlaceholder": "Enter your name",
+      "saveButton": "Save Profile",
+      "saving": "Saving..."
+    },
+    "password": {
+      "title": "Change Password",
+      "success": "Password updated successfully!",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password",
+      "updateButton": "Update Password",
+      "updating": "Updating..."
+    },
+    "danger": {
+      "title": "Danger Zone",
+      "description": "This action cannot be undone. Your account and all your gradients will be permanently deleted.",
+      "deleteButton": "Delete My Account",
+      "modal": {
+        "title": "You're About to Delete Your Account",
+        "description": "This action cannot be undone. All your data will be permanently deleted. Type {confirm} below to continue.",
+        "confirmText": "DELETE MY ACCOUNT",
+        "deleteButton": "Delete Account",
+        "deleting": "Deleting..."
+      }
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "{count} gradients ready",
+      "titleStart": "Copy, paste,",
+      "titleHighlight": "shine.",
+      "description": "Curated, production-ready CSS and SCSS gradient collection. One-click copy, add to your project."
+    },
+    "stats": {
+      "gradients": "Gradients",
+      "categories": "Categories",
+      "oneClick": "1-Click",
+      "copy": "Copy"
+    },
+    "createGradient": "Create Gradient",
+    "search": {
+      "placeholder": "Search gradient...",
+      "tagPlaceholder": "Select tag..."
+    },
+    "tabs": {
+      "all": "All",
+      "system": "System",
+      "mine": "Mine",
+      "user": "User"
+    },
+    "results": {
+      "count": "{count} results",
+      "filtered": "filtered",
+      "clear": "Clear"
+    },
+    "view": {
+      "grid": "Grid view",
+      "list": "List view"
+    },
+    "loading": "Loading gradients...",
+    "error": {
+      "title": "An error occurred",
+      "retry": "Try Again"
+    },
+    "empty": {
+      "noResults": "No results found",
+      "noGradients": "No gradients yet"
+    },
+    "deleteConfirm": "Are you sure you want to delete this gradient?",
+    "deleteModal": {
+      "title": "Delete Gradient",
+      "description": "This gradient will be permanently deleted. This action cannot be undone."
+    }
+  },
+  "card": {
+    "badges": {
+      "system": "System",
+      "mine": "Mine"
+    },
+    "showCode": "Show code",
+    "hideCode": "Hide code",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirm": "Are you sure you want to delete this gradient?"
+  },
+  "gradientModal": {
+    "createTitle": "Create New Gradient",
+    "editTitle": "Edit Gradient",
+    "loginRequired": "You must be logged in to create a gradient.",
+    "fields": {
+      "name": "Gradient Name",
+      "namePlaceholder": "Example: Ocean Breeze",
+      "description": "Description",
+      "descriptionPlaceholder": "Short description about the gradient...",
+      "colors": "Colors",
+      "addColor": "Add Color",
+      "colorStart": "Start",
+      "colorEnd": "End",
+      "colorN": "Color {n}",
+      "angle": "Angle",
+      "tags": "Tags",
+      "addTag": "Add new tag..."
+    },
+    "buttons": {
+      "create": "Create Gradient",
+      "save": "Save",
+      "update": "Update",
+      "creating": "Creating...",
+      "saving": "Saving...",
+      "updating": "Updating..."
+    },
+    "errors": {
+      "createFailed": "Failed to create gradient",
+      "updateFailed": "Failed to update gradient"
+    },
+    "toast": {
+      "created": "Gradient created!",
+      "updated": "Gradient updated!"
+    }
+  },
+  "user": {
+    "admin": "Admin",
+    "administrator": "Administrator"
+  },
+  "language": {
+    "select": "Language",
+    "tr": "Turkce",
+    "en": "English",
+    "ar": "العربية"
+  }
+}
