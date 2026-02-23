@@ -2,19 +2,17 @@
 import type { Gradient } from "~/stores/gradients";
 import { useGradients } from "~/stores/gradients";
 
-const { t } = useI18n();
 const props = defineProps<{
   open: boolean;
   isDark?: boolean;
   editGradient?: Gradient | null;
 }>();
-
 const emit = defineEmits<{
   (e: "close"): void;
   (e: "created"): void;
   (e: "updated"): void;
 }>();
-
+const { t } = useI18n();
 const store = useGradients();
 const user = useSupabaseUser();
 
@@ -67,15 +65,17 @@ const existingTags = computed(() => {
 
 // Available tags (not yet selected)
 const availableTags = computed(() =>
-  existingTags.value.filter((t) => !selectedTags.value.includes(t))
+  existingTags.value.filter((t) => !selectedTags.value.includes(t)),
 );
 
 // Live preview gradient
 const previewGradient = computed(() => {
-  const stops = colors.value.map((color, i) => {
-    const percent = Math.round((i / (colors.value.length - 1)) * 100);
-    return `${color} ${percent}%`;
-  }).join(", ");
+  const stops = colors.value
+    .map((color, i) => {
+      const percent = Math.round((i / (colors.value.length - 1)) * 100);
+      return `${color} ${percent}%`;
+    })
+    .join(", ");
   return `linear-gradient(${angle.value}deg, ${stops})`;
 });
 
@@ -106,15 +106,19 @@ const isValid = computed(() => {
 });
 
 // Pre-fill form when editing
-watch(() => props.editGradient, (gradient) => {
-  if (gradient) {
-    name.value = gradient.name;
-    desc.value = gradient.desc;
-    colors.value = [...gradient.colors];
-    angle.value = gradient.angle;
-    selectedTags.value = [...gradient.tags];
-  }
-}, { immediate: true });
+watch(
+  () => props.editGradient,
+  (gradient) => {
+    if (gradient) {
+      name.value = gradient.name;
+      desc.value = gradient.desc;
+      colors.value = [...gradient.colors];
+      angle.value = gradient.angle;
+      selectedTags.value = [...gradient.tags];
+    }
+  },
+  { immediate: true },
+);
 
 // Submit
 async function submit() {
@@ -140,7 +144,9 @@ async function submit() {
       // Show toast
       toastMessage.value = t("gradientModal.toast.updated");
       showToast.value = true;
-      setTimeout(() => { showToast.value = false; }, 2000);
+      setTimeout(() => {
+        showToast.value = false;
+      }, 2000);
     } else {
       submitError.value = store.error || t("gradientModal.errors.updateFailed");
     }
@@ -153,7 +159,9 @@ async function submit() {
       // Show toast
       toastMessage.value = t("gradientModal.toast.created");
       showToast.value = true;
-      setTimeout(() => { showToast.value = false; }, 2000);
+      setTimeout(() => {
+        showToast.value = false;
+      }, 2000);
     } else {
       submitError.value = store.error || t("gradientModal.errors.createFailed");
     }
@@ -196,15 +204,9 @@ onBeforeUnmount(() => {
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div
-        v-if="open"
-        class="fixed inset-0 z-50 flex items-center justify-center p-4"
-      >
+      <div v-if="open" class="fixed inset-0 z-50 flex items-center justify-center p-4">
         <!-- Backdrop -->
-        <div
-          class="absolute inset-0 bg-black/60 backdrop-blur-sm"
-          @click="close"
-        />
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="close"></div>
 
         <!-- Modal -->
         <div
@@ -213,18 +215,24 @@ onBeforeUnmount(() => {
         >
           <!-- Header -->
           <div class="flex items-center justify-between mb-6">
-            <h2
-              class="text-xl font-bold"
-              :class="isDark ? 'text-white' : 'text-gray-900'"
-            >
-              {{ isEditMode ? t('gradientModal.editTitle') : t('gradientModal.createTitle') }}
+            <h2 class="text-xl font-bold" :class="isDark ? 'text-white' : 'text-gray-900'">
+              {{ isEditMode ? t("gradientModal.editTitle") : t("gradientModal.createTitle") }}
             </h2>
             <button
               class="p-2 rounded-lg transition-colors"
-              :class="isDark ? 'hover:bg-white/10 text-white/60' : 'hover:bg-gray-100 text-gray-500'"
+              :class="
+                isDark ? 'hover:bg-white/10 text-white/60' : 'hover:bg-gray-100 text-gray-500'
+              "
               @click="close"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
                 <path d="M18 6 6 18M6 6l12 12" />
               </svg>
             </button>
@@ -244,8 +252,8 @@ onBeforeUnmount(() => {
             class="mb-4 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20 text-sm"
             :class="isDark ? 'text-yellow-400' : 'text-yellow-600'"
           >
-            {{ t('gradientModal.loginRequired') }}
-            <NuxtLink to="/login" class="underline font-medium">{{ t('common.login') }}</NuxtLink>
+            {{ t("gradientModal.loginRequired") }}
+            <NuxtLink to="/login" class="underline font-medium">{{ t("common.login") }}</NuxtLink>
           </div>
 
           <!-- Live Preview -->
@@ -253,7 +261,7 @@ onBeforeUnmount(() => {
             class="h-40 rounded-xl mb-6 ring-1 transition-all duration-300"
             :class="isDark ? 'ring-white/10' : 'ring-gray-200'"
             :style="{ background: previewGradient }"
-          />
+          ></div>
 
           <!-- Form -->
           <div class="space-y-5">
@@ -263,10 +271,18 @@ onBeforeUnmount(() => {
                 class="block text-sm font-medium mb-2"
                 :class="isDark ? 'text-white/70' : 'text-gray-700'"
               >
-                {{ t('gradientModal.fields.name') }} *
+                {{ t("gradientModal.fields.name") }} *
               </label>
               <div class="relative">
-                <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" :class="isDark ? 'text-white/40' : 'text-gray-400'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5"
+                  :class="isDark ? 'text-white/40' : 'text-gray-400'"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
                   <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
                   <path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4Z" />
                 </svg>
@@ -275,9 +291,11 @@ onBeforeUnmount(() => {
                   type="text"
                   :placeholder="t('gradientModal.fields.namePlaceholder')"
                   class="w-full h-11 pl-12 pr-4 rounded-lg outline-none transition-colors"
-                  :class="isDark
-                    ? 'bg-white/5 ring-1 ring-white/10 text-white placeholder-white/40 focus:ring-white/20'
-                    : 'bg-gray-100 ring-1 ring-gray-200 text-gray-900 placeholder-gray-400 focus:ring-gray-300'"
+                  :class="
+                    isDark
+                      ? 'bg-white/5 ring-1 ring-white/10 text-white placeholder-white/40 focus:ring-white/20'
+                      : 'bg-gray-100 ring-1 ring-gray-200 text-gray-900 placeholder-gray-400 focus:ring-gray-300'
+                  "
                 />
               </div>
             </div>
@@ -288,10 +306,18 @@ onBeforeUnmount(() => {
                 class="block text-sm font-medium mb-2"
                 :class="isDark ? 'text-white/70' : 'text-gray-700'"
               >
-                {{ t('gradientModal.fields.description') }}
+                {{ t("gradientModal.fields.description") }}
               </label>
               <div class="relative">
-                <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-4 top-4 w-5 h-5" :class="isDark ? 'text-white/40' : 'text-gray-400'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="absolute left-4 top-4 w-5 h-5"
+                  :class="isDark ? 'text-white/40' : 'text-gray-400'"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
                   <path d="M17 6.1H3" />
                   <path d="M21 12.1H3" />
                   <path d="M15.1 18H3" />
@@ -301,10 +327,12 @@ onBeforeUnmount(() => {
                   rows="2"
                   :placeholder="t('gradientModal.fields.descriptionPlaceholder')"
                   class="w-full pl-12 pr-4 py-3 rounded-lg outline-none resize-none transition-colors"
-                  :class="isDark
-                    ? 'bg-white/5 ring-1 ring-white/10 text-white placeholder-white/40 focus:ring-white/20'
-                    : 'bg-gray-100 ring-1 ring-gray-200 text-gray-900 placeholder-gray-400 focus:ring-gray-300'"
-                />
+                  :class="
+                    isDark
+                      ? 'bg-white/5 ring-1 ring-white/10 text-white placeholder-white/40 focus:ring-white/20'
+                      : 'bg-gray-100 ring-1 ring-gray-200 text-gray-900 placeholder-gray-400 focus:ring-gray-300'
+                  "
+                ></textarea>
               </div>
             </div>
 
@@ -315,30 +343,35 @@ onBeforeUnmount(() => {
                   class="block text-sm font-medium"
                   :class="isDark ? 'text-white/70' : 'text-gray-700'"
                 >
-                  {{ t('gradientModal.fields.colors') }} ({{ colors.length }}/{{ MAX_COLORS }})
+                  {{ t("gradientModal.fields.colors") }} ({{ colors.length }}/{{ MAX_COLORS }})
                 </label>
                 <button
                   v-if="colors.length < MAX_COLORS"
                   type="button"
                   class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors"
-                  :class="isDark
-                    ? 'bg-white/5 text-white/70 hover:bg-white/10'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                  :class="
+                    isDark
+                      ? 'bg-white/5 text-white/70 hover:bg-white/10'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  "
                   @click="addColor"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-3.5 h-3.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
                     <path d="M12 5v14M5 12h14" />
                   </svg>
-                  {{ t('gradientModal.fields.addColor') }}
+                  {{ t("gradientModal.fields.addColor") }}
                 </button>
               </div>
 
               <div class="space-y-3">
-                <div
-                  v-for="(color, index) in colors"
-                  :key="index"
-                  class="flex items-center gap-3"
-                >
+                <div v-for="(color, index) in colors" :key="index" class="flex items-center gap-3">
                   <!-- Color picker -->
                   <div
                     class="relative w-12 h-12 rounded-lg overflow-hidden ring-1 cursor-pointer shrink-0"
@@ -350,10 +383,7 @@ onBeforeUnmount(() => {
                       class="absolute inset-0 w-full h-full cursor-pointer opacity-0"
                       @input="updateColor(index, ($event.target as HTMLInputElement).value)"
                     />
-                    <div
-                      class="w-full h-full"
-                      :style="{ backgroundColor: color }"
-                    />
+                    <div class="w-full h-full" :style="{ backgroundColor: color }"></div>
                   </div>
 
                   <!-- Hex input -->
@@ -361,9 +391,11 @@ onBeforeUnmount(() => {
                     :value="color"
                     type="text"
                     class="flex-1 h-11 px-3 rounded-lg font-mono text-sm uppercase outline-none transition-colors"
-                    :class="isDark
-                      ? 'bg-white/5 ring-1 ring-white/10 text-white focus:ring-white/20'
-                      : 'bg-gray-100 ring-1 ring-gray-200 text-gray-900 focus:ring-gray-300'"
+                    :class="
+                      isDark
+                        ? 'bg-white/5 ring-1 ring-white/10 text-white focus:ring-white/20'
+                        : 'bg-gray-100 ring-1 ring-gray-200 text-gray-900 focus:ring-gray-300'
+                    "
                     @input="updateColor(index, ($event.target as HTMLInputElement).value)"
                   />
 
@@ -372,7 +404,13 @@ onBeforeUnmount(() => {
                     class="text-xs w-16 text-center shrink-0"
                     :class="isDark ? 'text-white/40' : 'text-gray-400'"
                   >
-                    {{ index === 0 ? t('gradientModal.fields.colorStart') : index === colors.length - 1 ? t('gradientModal.fields.colorEnd') : t('gradientModal.fields.colorN', { n: index + 1 }) }}
+                    {{
+                      index === 0
+                        ? t("gradientModal.fields.colorStart")
+                        : index === colors.length - 1
+                          ? t("gradientModal.fields.colorEnd")
+                          : t("gradientModal.fields.colorN", { n: index + 1 })
+                    }}
                   </span>
 
                   <!-- Remove button -->
@@ -380,16 +418,25 @@ onBeforeUnmount(() => {
                     v-if="colors.length > MIN_COLORS"
                     type="button"
                     class="p-2 rounded-lg transition-colors shrink-0"
-                    :class="isDark
-                      ? 'text-white/40 hover:text-red-400 hover:bg-red-500/10'
-                      : 'text-gray-400 hover:text-red-500 hover:bg-red-50'"
+                    :class="
+                      isDark
+                        ? 'text-white/40 hover:text-red-400 hover:bg-red-500/10'
+                        : 'text-gray-400 hover:text-red-500 hover:bg-red-50'
+                    "
                     @click="removeColor(index)"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-4 h-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
                       <path d="M18 6 6 18M6 6l12 12" />
                     </svg>
                   </button>
-                  <div v-else class="w-8 shrink-0" />
+                  <div v-else class="w-8 shrink-0"></div>
                 </div>
               </div>
             </div>
@@ -400,7 +447,7 @@ onBeforeUnmount(() => {
                 class="block text-sm font-medium mb-2"
                 :class="isDark ? 'text-white/70' : 'text-gray-700'"
               >
-                {{ t('gradientModal.fields.angle') }}: {{ angle }}°
+                {{ t("gradientModal.fields.angle") }}: {{ angle }}°
               </label>
               <div class="flex items-center gap-4">
                 <input
@@ -416,9 +463,13 @@ onBeforeUnmount(() => {
                     v-for="a in [0, 45, 90, 135, 180]"
                     :key="a"
                     class="px-2 py-1 text-xs rounded-md transition-colors"
-                    :class="angle === a
-                      ? 'bg-orange-500 text-white'
-                      : isDark ? 'bg-white/5 text-white/60 hover:bg-white/10' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
+                    :class="
+                      angle === a
+                        ? 'bg-orange-500 text-white'
+                        : isDark
+                          ? 'bg-white/5 text-white/60 hover:bg-white/10'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    "
                     @click="angle = a"
                   >
                     {{ a }}°
@@ -433,7 +484,7 @@ onBeforeUnmount(() => {
                 class="block text-sm font-medium mb-2"
                 :class="isDark ? 'text-white/70' : 'text-gray-700'"
               >
-                {{ t('gradientModal.fields.tags') }} *
+                {{ t("gradientModal.fields.tags") }} *
               </label>
 
               <!-- Selected tags -->
@@ -442,13 +493,22 @@ onBeforeUnmount(() => {
                   v-for="tag in selectedTags"
                   :key="tag"
                   class="inline-flex items-center gap-1 px-2.5 py-1 text-xs rounded-md transition-colors"
-                  :class="isDark
-                    ? 'bg-orange-500/20 text-orange-400 hover:bg-orange-500/30'
-                    : 'bg-orange-100 text-orange-600 hover:bg-orange-200'"
+                  :class="
+                    isDark
+                      ? 'bg-orange-500/20 text-orange-400 hover:bg-orange-500/30'
+                      : 'bg-orange-100 text-orange-600 hover:bg-orange-200'
+                  "
                   @click="removeTag(tag)"
                 >
                   {{ tag }}
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-3 h-3"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
                     <path d="M18 6 6 18M6 6l12 12" />
                   </svg>
                 </button>
@@ -457,8 +517,18 @@ onBeforeUnmount(() => {
               <!-- Custom tag input -->
               <div class="flex gap-2 mb-3">
                 <div class="relative flex-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" :class="isDark ? 'text-white/40' : 'text-gray-400'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4"
+                    :class="isDark ? 'text-white/40' : 'text-gray-400'"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"
+                    />
                     <path d="M7 7h.01" />
                   </svg>
                   <input
@@ -466,20 +536,24 @@ onBeforeUnmount(() => {
                     type="text"
                     :placeholder="t('gradientModal.fields.addTag')"
                     class="w-full h-10 pl-9 pr-3 rounded-lg text-sm outline-none transition-colors"
-                    :class="isDark
-                      ? 'bg-white/5 ring-1 ring-white/10 text-white placeholder-white/40 focus:ring-white/20'
-                      : 'bg-gray-100 ring-1 ring-gray-200 text-gray-900 placeholder-gray-400 focus:ring-gray-300'"
+                    :class="
+                      isDark
+                        ? 'bg-white/5 ring-1 ring-white/10 text-white placeholder-white/40 focus:ring-white/20'
+                        : 'bg-gray-100 ring-1 ring-gray-200 text-gray-900 placeholder-gray-400 focus:ring-gray-300'
+                    "
                     @keydown.enter.prevent="addCustomTag"
                   />
                 </div>
                 <button
                   class="px-4 h-10 rounded-lg text-sm font-medium transition-colors"
-                  :class="isDark
-                    ? 'bg-white/5 text-white/70 hover:bg-white/10'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+                  :class="
+                    isDark
+                      ? 'bg-white/5 text-white/70 hover:bg-white/10'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  "
                   @click="addCustomTag"
                 >
-                  {{ t('common.add') }}
+                  {{ t("common.add") }}
                 </button>
               </div>
 
@@ -489,9 +563,11 @@ onBeforeUnmount(() => {
                   v-for="tag in availableTags"
                   :key="tag"
                   class="px-2.5 py-1 text-xs rounded-md ring-1 transition-colors"
-                  :class="isDark
-                    ? 'bg-white/5 text-white/60 ring-white/10 hover:bg-white/10'
-                    : 'bg-gray-50 text-gray-600 ring-gray-200 hover:bg-gray-100'"
+                  :class="
+                    isDark
+                      ? 'bg-white/5 text-white/60 ring-white/10 hover:bg-white/10'
+                      : 'bg-gray-50 text-gray-600 ring-gray-200 hover:bg-gray-100'
+                  "
                   @click="addTag(tag)"
                 >
                   + {{ tag }}
@@ -501,15 +577,16 @@ onBeforeUnmount(() => {
           </div>
 
           <!-- Footer -->
-          <div class="flex items-center justify-end gap-3 mt-8 pt-6 border-t" :class="isDark ? 'border-white/10' : 'border-gray-200'">
+          <div
+            class="flex items-center justify-end gap-3 mt-8 pt-6 border-t"
+            :class="isDark ? 'border-white/10' : 'border-gray-200'"
+          >
             <button
               class="px-5 py-2.5 rounded-lg text-sm font-medium transition-colors"
-              :class="isDark
-                ? 'text-white/70 hover:bg-white/5'
-                : 'text-gray-600 hover:bg-gray-100'"
+              :class="isDark ? 'text-white/70 hover:bg-white/5' : 'text-gray-600 hover:bg-gray-100'"
               @click="close"
             >
-              {{ t('common.cancel') }}
+              {{ t("common.cancel") }}
             </button>
             <button
               class="shiny-cta"
@@ -520,17 +597,43 @@ onBeforeUnmount(() => {
               <span class="shiny-cta-content">
                 <template v-if="submitting">
                   <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    />
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    />
                   </svg>
-                  {{ isEditMode ? t('gradientModal.buttons.updating') : t('gradientModal.buttons.creating') }}
+                  {{
+                    isEditMode
+                      ? t("gradientModal.buttons.updating")
+                      : t("gradientModal.buttons.creating")
+                  }}
                 </template>
                 <template v-else>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
                     <path v-if="isEditMode" d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
                     <path v-else d="M12 5v14M5 12h14" />
                   </svg>
-                  {{ isEditMode ? t('gradientModal.buttons.update') : t('gradientModal.buttons.create') }}
+                  {{
+                    isEditMode
+                      ? t("gradientModal.buttons.update")
+                      : t("gradientModal.buttons.create")
+                  }}
                 </template>
               </span>
             </button>
@@ -540,20 +643,27 @@ onBeforeUnmount(() => {
     </Transition>
   </Teleport>
 
-    <!-- Success Toast -->
-    <Teleport to="body">
-      <Transition name="toast">
-        <div
-          v-if="showToast"
-          class="fixed top-4 right-4 z-[9999] px-4 py-3 rounded-xl bg-green-500 text-white text-sm font-medium shadow-2xl flex items-center gap-2"
+  <!-- Success Toast -->
+  <Teleport to="body">
+    <Transition name="toast">
+      <div
+        v-if="showToast"
+        class="fixed top-4 right-4 z-[9999] px-4 py-3 rounded-xl bg-green-500 text-white text-sm font-medium shadow-2xl flex items-center gap-2"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-4 h-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 6 9 17l-5-5" />
-          </svg>
-          {{ toastMessage }}
-        </div>
-      </Transition>
-    </Teleport>
+          <path d="M20 6 9 17l-5-5" />
+        </svg>
+        {{ toastMessage }}
+      </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <style scoped>
@@ -620,7 +730,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .shiny-cta::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;

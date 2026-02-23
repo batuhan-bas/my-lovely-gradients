@@ -2,18 +2,17 @@
 import type { Gradient } from "~/stores/gradients";
 import { useGradients } from "~/stores/gradients";
 
-const { t } = useI18n();
 const props = defineProps<{
   gradient: Gradient;
   open: boolean;
   isDark?: boolean;
 }>();
-
 const emit = defineEmits<{
   (e: "toggle"): void;
   (e: "edit", id: string): void;
   (e: "delete", id: string): void;
 }>();
+const { t } = useI18n();
 const store = useGradients();
 
 // Owner name for admin view
@@ -23,10 +22,12 @@ const ownerDisplay = computed(() => {
 });
 
 const bg = computed(() => {
-  const stops = props.gradient.colors.map((color, i) => {
-    const percent = Math.round((i / (props.gradient.colors.length - 1)) * 100);
-    return `${color} ${percent}%`;
-  }).join(", ");
+  const stops = props.gradient.colors
+    .map((color, i) => {
+      const percent = Math.round((i / (props.gradient.colors.length - 1)) * 100);
+      return `${color} ${percent}%`;
+    })
+    .join(", ");
   return `linear-gradient(${props.gradient.angle}deg, ${stops})`;
 });
 
@@ -35,9 +36,7 @@ const showCopied = ref(false);
 
 function copyCode() {
   const str =
-    tab.value === "css"
-      ? store.cssString(props.gradient)
-      : store.scssString(props.gradient);
+    tab.value === "css" ? store.cssString(props.gradient) : store.scssString(props.gradient);
   if (import.meta.client && globalThis.navigator?.clipboard) {
     globalThis.navigator.clipboard.writeText(str);
     showCopied.value = true;
@@ -92,23 +91,20 @@ function onLeave(el: Element) {
   >
     <!-- Gradient Preview -->
     <div class="relative">
-      <div
-        class="h-40 w-full"
-        :style="{ background: bg }"
-      />
+      <div class="h-40 w-full" :style="{ background: bg }"></div>
       <!-- Badges -->
       <div class="absolute left-3 top-3 flex gap-2">
         <span
           v-if="gradient.isSystem"
           class="px-2 py-1 text-xs font-medium rounded-full bg-blue-500/80 text-white backdrop-blur"
         >
-          {{ t('card.badges.system') }}
+          {{ t("card.badges.system") }}
         </span>
         <span
           v-if="gradient.isOwner"
           class="px-2 py-1 text-xs font-medium rounded-full bg-green-500/80 text-white backdrop-blur"
         >
-          {{ t('card.badges.mine') }}
+          {{ t("card.badges.mine") }}
         </span>
         <!-- Admin: show owner name for other users' gradients -->
         <span
@@ -121,10 +117,10 @@ function onLeave(el: Element) {
       <!-- Show code button -->
       <button
         class="absolute right-3 top-3 h-8 px-3 rounded-full bg-black/50 backdrop-blur ring-1 ring-white/20 text-xs font-medium text-white/90 hover:bg-black/70 transition"
-        @click="emit('toggle')"
         :aria-expanded="open"
+        @click="emit('toggle')"
       >
-        {{ open ? t('card.hideCode') : t('card.showCode') }}
+        {{ open ? t("card.hideCode") : t("card.showCode") }}
       </button>
     </div>
 
@@ -135,10 +131,17 @@ function onLeave(el: Element) {
           v-if="showCopied"
           class="fixed top-4 right-4 z-[9999] px-4 py-3 rounded-xl bg-green-500 text-white text-sm font-medium shadow-2xl flex items-center gap-2"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <path d="M20 6 9 17l-5-5" />
           </svg>
-          {{ t('common.copied') }}
+          {{ t("common.copied") }}
         </div>
       </Transition>
     </Teleport>
@@ -146,10 +149,7 @@ function onLeave(el: Element) {
     <!-- Body -->
     <div class="p-4 space-y-3">
       <!-- Title -->
-      <h3
-        class="text-base font-semibold"
-        :class="isDark ? 'text-white' : 'text-gray-900'"
-      >
+      <h3 class="text-base font-semibold" :class="isDark ? 'text-white' : 'text-gray-900'">
         {{ gradient.name }}
       </h3>
 
@@ -168,9 +168,11 @@ function onLeave(el: Element) {
           v-for="t in gradient.tags.slice(0, 4)"
           :key="t"
           class="px-2.5 py-1 text-xs rounded-md ring-1 transition-colors"
-          :class="isDark
-            ? 'text-white/60 bg-white/5 ring-white/10'
-            : 'text-gray-600 bg-gray-100 ring-gray-200'"
+          :class="
+            isDark
+              ? 'text-white/60 bg-white/5 ring-white/10'
+              : 'text-gray-600 bg-gray-100 ring-gray-200'
+          "
         >
           {{ t }}
         </span>
@@ -187,22 +189,26 @@ function onLeave(el: Element) {
       <!-- Edit/Delete Buttons (owner or admin for non-system gradients) -->
       <div v-if="gradient.isOwner || (store.isAdmin && !gradient.isSystem)" class="flex gap-2 pt-2">
         <button
-          @click="emit('edit', gradient.id)"
           class="flex-1 h-9 rounded-lg text-xs font-medium transition-colors"
-          :class="isDark
-            ? 'bg-white/5 ring-1 ring-white/10 text-white/70 hover:bg-white/10 hover:text-white'
-            : 'bg-gray-100 ring-1 ring-gray-200 text-gray-600 hover:bg-gray-200 hover:text-gray-900'"
+          :class="
+            isDark
+              ? 'bg-white/5 ring-1 ring-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+              : 'bg-gray-100 ring-1 ring-gray-200 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
+          "
+          @click="emit('edit', gradient.id)"
         >
-          {{ t('card.edit') }}
+          {{ t("card.edit") }}
         </button>
         <button
-          @click="emit('delete', gradient.id)"
           class="flex-1 h-9 rounded-lg text-xs font-medium transition-colors ring-1"
-          :class="isDark
-            ? 'bg-red-500/10 ring-red-500/30 text-red-400 hover:bg-red-500/20'
-            : 'bg-red-50 ring-red-200 text-red-600 hover:bg-red-100'"
+          :class="
+            isDark
+              ? 'bg-red-500/10 ring-red-500/30 text-red-400 hover:bg-red-500/20'
+              : 'bg-red-50 ring-red-200 text-red-600 hover:bg-red-100'
+          "
+          @click="emit('delete', gradient.id)"
         >
-          {{ t('card.delete') }}
+          {{ t("card.delete") }}
         </button>
       </div>
 
@@ -223,18 +229,26 @@ function onLeave(el: Element) {
             <div class="flex gap-2">
               <button
                 class="px-3 py-1.5 rounded-md text-xs font-medium transition"
-                :class="tab === 'css'
-                  ? 'bg-orange-500 text-white'
-                  : isDark ? 'bg-white/5 text-white/60 hover:bg-white/10' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
+                :class="
+                  tab === 'css'
+                    ? 'bg-orange-500 text-white'
+                    : isDark
+                      ? 'bg-white/5 text-white/60 hover:bg-white/10'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                "
                 @click="tab = 'css'"
               >
                 CSS
               </button>
               <button
                 class="px-3 py-1.5 rounded-md text-xs font-medium transition"
-                :class="tab === 'scss'
-                  ? 'bg-orange-500 text-white'
-                  : isDark ? 'bg-white/5 text-white/60 hover:bg-white/10' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
+                :class="
+                  tab === 'scss'
+                    ? 'bg-orange-500 text-white'
+                    : isDark
+                      ? 'bg-white/5 text-white/60 hover:bg-white/10'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                "
                 @click="tab = 'scss'"
               >
                 SCSS
@@ -243,9 +257,11 @@ function onLeave(el: Element) {
             <!-- Copy Button -->
             <button
               class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium ring-1 transition"
-              :class="isDark
-                ? 'bg-white/5 text-white/70 ring-white/10 hover:bg-white/10 hover:text-white'
-                : 'bg-gray-100 text-gray-600 ring-gray-200 hover:bg-gray-200 hover:text-gray-900'"
+              :class="
+                isDark
+                  ? 'bg-white/5 text-white/70 ring-white/10 hover:bg-white/10 hover:text-white'
+                  : 'bg-gray-100 text-gray-600 ring-gray-200 hover:bg-gray-200 hover:text-gray-900'
+              "
               @click="copyCode"
             >
               <svg
@@ -259,7 +275,7 @@ function onLeave(el: Element) {
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                 <path d="M5 15V5a2 2 0 0 1 2-2h10" />
               </svg>
-              {{ t('common.copy') }}
+              {{ t("common.copy") }}
             </button>
           </div>
 

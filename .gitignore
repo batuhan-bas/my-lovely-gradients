@@ -25,6 +25,9 @@ pnpm-debug.log*
 *.swp
 *.swo
 
+# Claude Code
+.claude
+
 # Local env files
 .env
 .env.*

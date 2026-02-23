@@ -57,20 +57,33 @@ onBeforeUnmount(() => {
     <!-- Trigger Button -->
     <button
       class="h-10 px-3 rounded-full flex items-center gap-2 transition-colors duration-200"
-      :class="isDark
-        ? 'bg-white/5 ring-1 ring-white/10 hover:bg-white/10'
-        : 'bg-gray-100 ring-1 ring-gray-200 hover:bg-gray-200'"
+      :class="
+        isDark
+          ? 'bg-white/5 ring-1 ring-white/10 hover:bg-white/10'
+          : 'bg-gray-100 ring-1 ring-gray-200 hover:bg-gray-200'
+      "
       @click.stop="isOpen = !isOpen"
     >
       <!-- Globe icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" :class="isDark ? 'text-white/60' : 'text-gray-500'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-4 h-4"
+        :class="isDark ? 'text-white/60' : 'text-gray-500'"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
         <circle cx="12" cy="12" r="10" />
         <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
         <path d="M2 12h20" />
       </svg>
 
       <!-- Current locale code -->
-      <span class="text-sm font-medium uppercase" :class="isDark ? 'text-white/80' : 'text-gray-700'">
+      <span
+        class="text-sm font-medium uppercase"
+        :class="isDark ? 'text-white/80' : 'text-gray-700'"
+      >
         {{ locale }}
       </span>
 
@@ -78,10 +91,7 @@ onBeforeUnmount(() => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="w-3 h-3 transition-transform duration-200"
-        :class="[
-          isOpen ? 'rotate-180' : '',
-          isDark ? 'text-white/40' : 'text-gray-400'
-        ]"
+        :class="[isOpen ? 'rotate-180' : '', isDark ? 'text-white/40' : 'text-gray-400']"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -98,7 +108,7 @@ onBeforeUnmount(() => {
         class="absolute top-full mt-2 w-40 rounded-xl overflow-hidden shadow-xl z-50 transition-colors duration-200"
         :class="[
           isDark ? 'bg-[#1a1a1a] ring-1 ring-white/10' : 'bg-white ring-1 ring-gray-200',
-          locale === 'ar' ? 'left-0' : 'right-0'
+          locale === 'ar' ? 'left-0' : 'right-0',
         ]"
       >
         <div class="py-1">
@@ -111,7 +121,7 @@ onBeforeUnmount(() => {
                 ? 'bg-orange-500/10 text-orange-500'
                 : isDark
                   ? 'text-white/70 hover:bg-white/5 hover:text-white'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
             ]"
             @click="switchLocale(loc.code)"
           >

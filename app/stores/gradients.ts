@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 
 // --- Tipler ---
-export type DbGradient = {
+export interface DbGradient {
   id: string;
   user_id: string | null;
   name: string;
@@ -12,9 +12,9 @@ export type DbGradient = {
   is_system: boolean;
   created_at: string;
   updated_at: string;
-};
+}
 
-export type Gradient = {
+export interface Gradient {
   id: string;
   name: string;
   desc: string;
@@ -25,28 +25,24 @@ export type Gradient = {
   isOwner: boolean;
   ownerId?: string | null;
   ownerName?: string | null;
-};
+}
 
-export type GradientInput = {
+export interface GradientInput {
   name: string;
   desc: string;
   tags: string[];
   angle: number;
   colors: string[];
-};
+}
 
 export const useGradients = defineStore("gradients", () => {
   const supabase = useSupabaseClient();
   const user = useSupabaseUser();
 
   // --- 1. Merkezi ID ve Rol Yönetimi ---
-  const currentUserId = computed(
-    () => user.value?.id || user.value?.sub || null
-  );
+  const currentUserId = computed(() => user.value?.id || user.value?.sub || null);
 
-  const isAdmin = computed(() => {
-    return user.value?.app_metadata?.is_admin === true;
-  });
+  const isAdmin = computed(() => user.value?.app_metadata?.is_admin === true);
 
   // --- 2. State ---
   const systemGradients = ref<Gradient[]>([]);
@@ -57,14 +53,13 @@ export const useGradients = defineStore("gradients", () => {
   // Cache for user profiles (userId -> name)
   const userProfiles = ref<Record<string, string>>({});
 
-  const items = computed(() => [
-    ...systemGradients.value,
-    ...userGradients.value,
-  ]);
+  const items = computed(() => [...systemGradients.value, ...userGradients.value]);
 
   // --- 3. Yardımcı Fonksiyonlar ---
   function getOwnerName(userId: string | null): string | null {
-    if (!userId) return null;
+    if (!userId) {
+      return null;
+    }
     // Current user's name
     if (userId === currentUserId.value) {
       return user.value?.user_metadata?.full_name || null;
@@ -75,11 +70,7 @@ export const useGradients = defineStore("gradients", () => {
 
   function transformGradient(db: DbGradient): Gradient {
     // isOwner: Kullanici login olmali VE gradient'in sahibi olmali
-    const isOwner = !!(
-      currentUserId.value &&
-      db.user_id &&
-      db.user_id === currentUserId.value
-    );
+    const isOwner = !!(currentUserId.value && db.user_id && db.user_id === currentUserId.value);
 
     return {
       id: db.id,
@@ -97,7 +88,9 @@ export const useGradients = defineStore("gradients", () => {
 
   // Fetch user profiles for admin view
   async function fetchUserProfiles(userIds: string[]) {
-    if (userIds.length === 0) return;
+    if (userIds.length === 0) {
+      return;
+    }
     try {
       const { data, error: profileError } = await supabase
         .from("profiles")
@@ -131,31 +124,35 @@ export const useGradients = defineStore("gradients", () => {
         .eq("is_system", true)
         .order("created_at", { ascending: true });
 
-      if (systemError) throw systemError;
+      if (systemError) {
+        throw systemError;
+      }
       systemGradients.value = ((systemData || []) as DbGradient[]).map(transformGradient);
 
       if (currentUserId.value) {
-        let query = supabase
-          .from("gradients")
-          .select("*")
-          .eq("is_system", false);
-        if (!isAdmin.value) query = query.eq("user_id", currentUserId.value);
+        let query = supabase.from("gradients").select("*").eq("is_system", false);
+        if (!isAdmin.value) {
+          query = query.eq("user_id", currentUserId.value);
+        }
 
-        const { data: userData, error: userError } = await query.order(
-          "created_at",
-          { ascending: false }
-        );
-        if (userError) throw userError;
+        const { data: userData, error: userError } = await query.order("created_at", {
+          ascending: false,
+        });
+        if (userError) {
+          throw userError;
+        }
 
         const rawUserGradients = (userData || []) as DbGradient[];
 
         // Admin: fetch profiles for other users
         if (isAdmin.value && rawUserGradients.length > 0) {
-          const otherUserIds = [...new Set(
-            rawUserGradients
-              .map(g => g.user_id)
-              .filter(id => id && id !== currentUserId.value)
-          )] as string[];
+          const otherUserIds = [
+            ...new Set(
+              rawUserGradients
+                .map((g) => g.user_id)
+                .filter((id) => id && id !== currentUserId.value),
+            ),
+          ] as string[];
 
           if (otherUserIds.length > 0) {
             await fetchUserProfiles(otherUserIds);
@@ -173,10 +170,10 @@ export const useGradients = defineStore("gradients", () => {
     }
   }
 
-  async function createGradient(
-    input: GradientInput
-  ): Promise<Gradient | null> {
-    if (!currentUserId.value) return null;
+  async function createGradient(input: GradientInput): Promise<Gradient | null> {
+    if (!currentUserId.value) {
+      return null;
+    }
     try {
       const { data, error: insertError } = await supabase
         .from("gradients")
@@ -192,7 +189,9 @@ export const useGradients = defineStore("gradients", () => {
         .select()
         .single();
 
-      if (insertError) throw insertError;
+      if (insertError) {
+        throw insertError;
+      }
       const newGradient = transformGradient(data as DbGradient);
       userGradients.value.unshift(newGradient);
       return newGradient;
@@ -203,7 +202,9 @@ export const useGradients = defineStore("gradients", () => {
   }
 
   async function updateGradient(id: string, input: GradientInput) {
-    if (!currentUserId.value) return false;
+    if (!currentUserId.value) {
+      return false;
+    }
     try {
       let query = supabase
         .from("gradients")
@@ -222,7 +223,9 @@ export const useGradients = defineStore("gradients", () => {
       }
 
       const { error: updateError } = await query;
-      if (updateError) throw updateError;
+      if (updateError) {
+        throw updateError;
+      }
       await fetchGradients();
       return true;
     } catch (e: any) {
@@ -232,12 +235,11 @@ export const useGradients = defineStore("gradients", () => {
   }
 
   async function deleteGradient(id: string) {
-    if (!currentUserId.value) return false;
+    if (!currentUserId.value) {
+      return false;
+    }
     try {
-      let query = supabase
-        .from("gradients")
-        .delete()
-        .eq("id", id);
+      let query = supabase.from("gradients").delete().eq("id", id);
 
       // Admin can delete any gradient, regular users only their own
       if (!isAdmin.value) {
@@ -245,7 +247,9 @@ export const useGradients = defineStore("gradients", () => {
       }
 
       const { error: deleteError } = await query;
-      if (deleteError) throw deleteError;
+      if (deleteError) {
+        throw deleteError;
+      }
       userGradients.value = userGradients.value.filter((g) => g.id !== id);
       return true;
     } catch (e: any) {
@@ -273,9 +277,7 @@ export const useGradients = defineStore("gradients", () => {
     cssString: (g: Gradient) =>
       `background: linear-gradient(${g.angle}deg, ${g.colors.join(", ")});`,
     scssString: (g: Gradient) => {
-      const colorVars = g.colors
-        .map((c, i) => `$color-${i + 1}: ${c};`)
-        .join("\n");
+      const colorVars = g.colors.map((c, i) => `$color-${i + 1}: ${c};`).join("\n");
       return `${colorVars}\n\n.gradient {\n  background: linear-gradient(${g.angle}deg, ${g.colors.map((_, i) => `$color-${i + 1}`).join(", ")});\n}`;
     },
   };

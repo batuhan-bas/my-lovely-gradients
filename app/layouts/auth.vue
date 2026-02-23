@@ -44,11 +44,12 @@ function toggleColorMode() {
       class="sticky top-0 z-20 backdrop-blur-sm transition-colors duration-300"
       :class="isDark ? 'bg-[#0f0f0f]/80' : 'bg-white/80 shadow-sm'"
     >
-      <div
-        class="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between"
-      >
-        <NuxtLink to="/" class="logo-text text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
-          {{ t('nav.brand') }}
+      <div class="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between">
+        <NuxtLink
+          to="/"
+          class="logo-text text-xl font-bold tracking-tight hover:opacity-80 transition-opacity"
+        >
+          {{ t("nav.brand") }}
         </NuxtLink>
 
         <div class="flex items-center gap-3">
@@ -58,9 +59,13 @@ function toggleColorMode() {
           <!-- Theme toggle -->
           <button
             class="h-10 w-10 grid place-items-center rounded-full transition-colors duration-300"
-            :class="isDark ? 'bg-white/5 ring-1 ring-white/10 hover:bg-white/10' : 'bg-gray-100 ring-1 ring-gray-200 hover:bg-gray-200'"
-            @click="toggleColorMode"
+            :class="
+              isDark
+                ? 'bg-white/5 ring-1 ring-white/10 hover:bg-white/10'
+                : 'bg-gray-100 ring-1 ring-gray-200 hover:bg-gray-200'
+            "
             :aria-label="isDark ? 'Light mode' : 'Dark mode'"
+            @click="toggleColorMode"
           >
             <!-- Sun icon (show in dark mode) -->
             <svg
@@ -73,7 +78,9 @@ function toggleColorMode() {
               stroke-width="2"
             >
               <circle cx="12" cy="12" r="4" />
-              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+              />
             </svg>
             <!-- Moon icon (show in light mode) -->
             <svg
@@ -94,23 +101,14 @@ function toggleColorMode() {
 
     <!-- Centered Content -->
     <main class="flex-1 flex items-center justify-center px-6 py-12">
-      <slot />
+      <slot></slot>
     </main>
   </div>
 </template>
 
 <style scoped>
 .logo-text {
-  background: linear-gradient(
-    90deg,
-    #ff6b6b,
-    #feca57,
-    #48dbfb,
-    #ff9ff3,
-    #54a0ff,
-    #5f27cd,
-    #ff6b6b
-  );
+  background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd, #ff6b6b);
   background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;

@@ -15,15 +15,13 @@ const inputEl = ref<HTMLInputElement | null>(null);
 const term = ref("");
 
 const normalized = computed<Option[]>(() =>
-  (props.options ?? []).map((o) => ({ label: o, value: o }))
+  (props.options ?? []).map((o) => ({ label: o, value: o })),
 );
 
 const filtered = computed<Option[]>(() => {
   const t = term.value.trim().toLowerCase();
   const out = normalized.value.filter(
-    (x) =>
-      !props.modelValue.includes(x.value) &&
-      (t === "" || x.label.toLowerCase().includes(t))
+    (x) => !props.modelValue.includes(x.value) && (t === "" || x.label.toLowerCase().includes(t)),
   );
   return out.sort((a, b) => a.label.localeCompare(b.label));
 });
@@ -46,7 +44,7 @@ function add(val: string) {
 function remove(val: string) {
   emit(
     "update:modelValue",
-    props.modelValue.filter((v) => v !== val)
+    props.modelValue.filter((v) => v !== val),
   );
   nextTick(() => inputEl.value?.focus());
 }
@@ -81,9 +79,11 @@ onBeforeUnmount(() => document.removeEventListener("mousedown", onDocClick));
     <button
       type="button"
       class="h-12 w-full rounded-xl pl-12 pr-4 flex items-center justify-between gap-2 transition-colors duration-300 relative"
-      :class="isDark
-        ? 'bg-[#1a1a1a] ring-1 ring-white/10 text-white hover:ring-white/20'
-        : 'bg-white ring-1 ring-gray-200 text-gray-900 hover:ring-gray-300 shadow-sm'"
+      :class="
+        isDark
+          ? 'bg-[#1a1a1a] ring-1 ring-white/10 text-white hover:ring-white/20'
+          : 'bg-white ring-1 ring-gray-200 text-gray-900 hover:ring-gray-300 shadow-sm'
+      "
       @click="toggleOpen"
     >
       <!-- Tag icon -->
@@ -96,14 +96,16 @@ onBeforeUnmount(() => document.removeEventListener("mousedown", onDocClick));
         stroke="currentColor"
         stroke-width="2"
       >
-        <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z" />
+        <path
+          d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"
+        />
         <path d="M7 7h.01" />
       </svg>
       <span v-if="modelValue.length === 0" :class="isDark ? 'text-white/40' : 'text-gray-400'">
-        {{ placeholder ?? 'Select tags...' }}
+        {{ placeholder ?? "Select tags..." }}
       </span>
       <span v-else :class="isDark ? 'text-white/70' : 'text-gray-700'" class="truncate">
-        {{ modelValue.join(', ') }}
+        {{ modelValue.join(", ") }}
       </span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -122,19 +124,21 @@ onBeforeUnmount(() => document.removeEventListener("mousedown", onDocClick));
     <div
       v-show="open"
       class="absolute z-20 mt-2 w-full max-h-64 overflow-auto rounded-lg p-2 transition-colors duration-300"
-      :class="isDark
-        ? 'bg-[#1a1a1a] ring-1 ring-white/10'
-        : 'bg-white ring-1 ring-gray-200 shadow-lg'"
+      :class="
+        isDark ? 'bg-[#1a1a1a] ring-1 ring-white/10' : 'bg-white ring-1 ring-gray-200 shadow-lg'
+      "
     >
       <!-- Search input -->
       <input
         ref="inputEl"
+        v-model="term"
         placeholder="Ara..."
         class="w-full h-9 px-3 mb-2 rounded-md outline-none text-sm transition-colors"
-        :class="isDark
-          ? 'bg-white/5 ring-1 ring-white/10 placeholder-white/40 text-white'
-          : 'bg-gray-100 ring-1 ring-gray-200 placeholder-gray-400 text-gray-900'"
-        v-model="term"
+        :class="
+          isDark
+            ? 'bg-white/5 ring-1 ring-white/10 placeholder-white/40 text-white'
+            : 'bg-gray-100 ring-1 ring-gray-200 placeholder-gray-400 text-gray-900'
+        "
         @keydown="onKeydown"
         @click.stop
       />
@@ -149,13 +153,22 @@ onBeforeUnmount(() => document.removeEventListener("mousedown", onDocClick));
           v-for="t in modelValue"
           :key="t"
           class="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-md transition-colors"
-          :class="isDark
-            ? 'bg-white/10 text-white/80 hover:bg-white/20'
-            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+          :class="
+            isDark
+              ? 'bg-white/10 text-white/80 hover:bg-white/20'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          "
           @click.stop="remove(t)"
         >
           {{ t }}
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-3 w-3"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <path d="M18 6 6 18M6 6l12 12" />
           </svg>
         </button>
@@ -166,9 +179,7 @@ onBeforeUnmount(() => document.removeEventListener("mousedown", onDocClick));
           v-for="opt in filtered"
           :key="opt.value"
           class="w-full text-left text-sm px-3 py-2 rounded-md transition-colors"
-          :class="isDark
-            ? 'text-white/70 hover:bg-white/5'
-            : 'text-gray-700 hover:bg-gray-100'"
+          :class="isDark ? 'text-white/70 hover:bg-white/5' : 'text-gray-700 hover:bg-gray-100'"
           @click.stop="add(opt.value)"
         >
           {{ opt.label }}
